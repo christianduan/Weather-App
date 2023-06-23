@@ -6,13 +6,13 @@ const error404 = document.querySelector('.not-found');
 
 search.addEventListener('click', () => {
 
-    const APIKey = '9ee9280863f122e90cc2d0538903f727'
+    const APIKey = '728b0ee6df5687559812bd3169ad77b7'
     const city = document.querySelector('.search-box input').value;
 
-    if(city === ' ')
+    if(city === '')
         return; 
 
-        fetch(`http://api.weatherstack.com/current?access_key=$9ee9280863f122e90cc2d0538903f727&query=${city}`)
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${APIKey}`)
         .then(response => response.json()).then
         (json => {
             if(json.cod === '404'){
@@ -27,7 +27,7 @@ search.addEventListener('click', () => {
             error404.style.display = 'none';
             error404.classList.remove('fadeIn');
 
-            const iamge = document.querySelector('.weather-box img');
+            const image = document.querySelector('.weather-box img');
             const temperature = document.querySelector('.weather-box .temperature');
             const description = document.querySelector('.weather-box .description');
             const humidity = document.querySelector('.weather-details .humidity span');
@@ -55,7 +55,7 @@ search.addEventListener('click', () => {
                     break;
 
                 default:
-                    image.src = ' ';
+                    image.src = '';
             }
 
             temperature.innerHTML = `${parseInt(json.main.temp)}<span>°C</span>`;
@@ -63,8 +63,8 @@ search.addEventListener('click', () => {
             humidity.innerHTML = `${json.main.humidity}%`;
             wind.innerHTML = `${parseInt(json.wind.speed)}km/h`;
 
-            weatherBox.style.display = ' ';
-            weatherDetails.style.display = ' ';
+            weatherBox.style.display = 'none';
+            weatherDetails.style.display = 'none';
             weatherBox.classList.add('fadeIn');
             weatherDetails.classList.add('fadeIn');
             container.style.height = '590px';
